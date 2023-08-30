@@ -3,11 +3,17 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 const root = ReactDOM.createRoot(document.getElementById('root'));
+const queryClient = new QueryClient()
+//You can also set your Stale time i.e your data remains fresh and there would be no need to refresh it again and again.
 root.render(
   <React.StrictMode>
+    <QueryClientProvider client={queryClient}>
     <App />
+    <ReactQueryDevtools />
+    </QueryClientProvider>
   </React.StrictMode>
 );
 

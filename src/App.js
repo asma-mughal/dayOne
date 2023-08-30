@@ -3,13 +3,57 @@ import './App.css';
 import Buttons from './components/Buttons';
 import QuizChallenge from './components/QuizChallenge';
 import RuffWork from './components/RuffWork';
-
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+const POSTS = [
+  {id:1, title:"POST 1"},{id:2, title:"POST 2"}]
+/* 
+Static things in URL should be in double Quotes,otherwise in objects or simple
+posts -> posts
+posts/1 -> ["posts", 1]
+posts/authorId = 1 -> ["posts", {authorId:1}]
+posts/2/comments -> ["posts", post.id,"comments"]
+*/
 function App() {
+  const queryClient = useQueryClient();
+const postsquery =   useQuery({
+    queryKey: ["POSTS"],
+     queryFn: (obj)=> wait(1000).then(()=> {
+      console.log(obj)
+      return [...POSTS]
+    
+     }) //Your react query Automatically Retires and try to fetch the data.
+})
+const newPostMutation = useMutation({
+  mutationFn : title =>{
+    return wait(1000).then(()=> POSTS.push({ id: crypto.randomUUID, title}))
+  },
+  onSuccess: () =>{
+  queryClient.invalidateQueries(["POSTS"]) //here is how you can re-fetch data.
+  }
+})
+
+if(postsquery.isLoading) return <h1>Loading...</h1>
+if(postsquery.isError) return <pre>{JSON.stringify(postsquery.error)}</pre>
+
   return (
     <div className="App">
-    <RuffWork />
+   {postsquery.data.map((post)=><p key={post.id}>{post.title}</p>)}
+   <button 
+   disabled = {newPostMutation.isLoading}
+   onClick={()=> newPostMutation.mutate("POST 3")} 
+   className='bg-red-400'
+   >
+  
+    Add New Title</button>
     </div>
   );
 }
+//if you want to slow your network time.
+function wait(duration) {
+  return new Promise(resolve => setTimeout(resolve , duration))
+}
 
 export default App;
+//you can do two things from React Query :
+// 1. Query - Getting data from somewhere else.
+// 2. Mutation - Changing the fetched Data. - create.
