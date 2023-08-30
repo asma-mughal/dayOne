@@ -4,6 +4,7 @@ import Buttons from './components/Buttons';
 import QuizChallenge from './components/QuizChallenge';
 import RuffWork from './components/RuffWork';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import ReactQueryPractice from './components/ReactQuery';
 const POSTS = [
   {id:1, title:"POST 1"},{id:2, title:"POST 2"}]
 /* 
@@ -45,6 +46,7 @@ if(postsquery.isError) return <pre>{JSON.stringify(postsquery.error)}</pre>
    >
   
     Add New Title</button>
+    <ReactQueryPractice />
     </div>
   );
 }
