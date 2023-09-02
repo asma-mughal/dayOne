@@ -15,45 +15,23 @@ posts/authorId = 1 -> ["posts", {authorId:1}]
 posts/2/comments -> ["posts", post.id,"comments"]
 */
 function App() {
-  const queryClient = useQueryClient();
-const postsquery =   useQuery({
-    queryKey: ["POSTS"],
-     queryFn: (obj)=> wait(1000).then(()=> {
-      console.log(obj)
-      return [...POSTS]
-    
-     }) //Your react query Automatically Retires and try to fetch the data.
-})
-const newPostMutation = useMutation({
-  mutationFn : title =>{
-    return wait(1000).then(()=> POSTS.push({ id: crypto.randomUUID, title}))
-  },
-  onSuccess: () =>{
-  queryClient.invalidateQueries(["POSTS"]) //here is how you can re-fetch data.
-  }
-})
-
-if(postsquery.isLoading) return <h1>Loading...</h1>
-if(postsquery.isError) return <pre>{JSON.stringify(postsquery.error)}</pre>
-
+const accPartial = (func, start , end) => {
+   const functionReturn = (...args) =>{
+    start = Math.max(start, 0);
+    end = Math.min(end, args.length);
+   const accumulatedArgs = args.slice(start, end);
+   return accumulatedArgs;
+   }
+   return functionReturn;
+}
   return (
     <div className="App">
-   {postsquery.data.map((post)=><p key={post.id}>{post.title}</p>)}
-   <button 
-   disabled = {newPostMutation.isLoading}
-   onClick={()=> newPostMutation.mutate("POST 3")} 
-   className='bg-red-400'
-   >
-  
-    Add New Title</button>
-    <ReactQueryPractice />
+   
     </div>
   );
 }
 //if you want to slow your network time.
-function wait(duration) {
-  return new Promise(resolve => setTimeout(resolve , duration))
-}
+
 
 export default App;
 //you can do two things from React Query :
