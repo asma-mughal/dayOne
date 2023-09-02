@@ -15,15 +15,14 @@ posts/authorId = 1 -> ["posts", {authorId:1}]
 posts/2/comments -> ["posts", post.id,"comments"]
 */
 function App() {
-const accPartial = (func, start , end) => {
-   const functionReturn = (...args) =>{
-    start = Math.max(start, 0);
-    end = Math.min(end, args.length);
-   const accumulatedArgs = args.slice(start, end);
-   return accumulatedArgs;
-   }
-   return functionReturn;
+const fill = (num) =>{
+  const emptyArray =[];
+  for(let i=0;i<num;i++){
+    emptyArray.push(i)
+  }
+  return emptyArray;
 }
+console.log(fill(5))
   return (
     <div className="App">
    
