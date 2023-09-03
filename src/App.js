@@ -16,11 +16,15 @@ posts/2/comments -> ["posts", post.id,"comments"]
 */
 function App() {
 const fill = (num) =>{
-  const emptyArray =[];
-  for(let i=0;i<num;i++){
-    emptyArray.push(i)
+  let arr =[];
+  if(num<=0) {
+    return;
   }
-  return emptyArray;
+  else {
+  arr.push(num);
+  return fill(num = num -1)
+  }
+  
 }
 console.log(fill(5))
   return (
