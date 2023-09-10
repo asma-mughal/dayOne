@@ -15,18 +15,13 @@ posts/authorId = 1 -> ["posts", {authorId:1}]
 posts/2/comments -> ["posts", post.id,"comments"]
 */
 function App() {
-const fill = (num) =>{
-  let arr =[];
-  if(num<=0) {
-    return;
-  }
-  else {
-  arr.push(num);
-  return fill(num = num -1)
-  }
-  
+const addf = (a, b) =>{
+ return function add(){
+  const sum = a+b;
+  return sum;
+ }
 }
-console.log(fill(5))
+console.log(addf(4,5))
   return (
     <div className="App">
    
