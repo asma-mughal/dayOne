@@ -28,6 +28,13 @@ console.log(addf(4,5))
     </div>
   );
 }
+const pure = (z) =>{
+function impure(x) {
+  y++;
+  z = x * y;
+}
+}
+
 //if you want to slow your network time.
 
 
