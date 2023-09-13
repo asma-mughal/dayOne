@@ -15,10 +15,17 @@ posts/authorId = 1 -> ["posts", {authorId:1}]
 posts/2/comments -> ["posts", post.id,"comments"]
 */
 function App() {
-const curryb = (binary, ...outer) =>{
-  return (...moreArgs) => { //that can takes a second argument
-    return (binary(...outer,...moreArgs))
-    }
+const twiceUnary = (binary) =>{
+  return (b) => {
+    binary(b)
+    binary(b)
+  }
+}
+const double = (b) =>{
+  twiceUnary((b)=> b * 2)
+}
+const square = (a) =>{
+  twiceUnary((b)=> b * b)
 }
   return (
     <div className="App">
