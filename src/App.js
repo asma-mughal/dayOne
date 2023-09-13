@@ -15,8 +15,10 @@ posts/authorId = 1 -> ["posts", {authorId:1}]
 posts/2/comments -> ["posts", post.id,"comments"]
 */
 function App() {
-const curryb = (binary, a) =>{
-  return (b) => binary(a,b)
+const curryb = (binary, ...outer) =>{
+  return (...moreArgs) => { //that can takes a second argument
+    return (binary(...outer,...moreArgs))
+    }
 }
   return (
     <div className="App">
