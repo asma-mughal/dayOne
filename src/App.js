@@ -15,24 +15,14 @@ posts/authorId = 1 -> ["posts", {authorId:1}]
 posts/2/comments -> ["posts", post.id,"comments"]
 */
 function App() {
-const addf = (a, b) =>{
- return function add(){
-  const sum = a+b;
-  return sum;
- }
+const curryb = (binary, a) =>{
+  return (b) => binary(a,b)
 }
-console.log(addf(4,5))
   return (
     <div className="App">
    
     </div>
   );
-}
-const pure = (z) =>{
-function impure(x) {
-  y++;
-  z = x * y;
-}
 }
 
 //if you want to slow your network time.
