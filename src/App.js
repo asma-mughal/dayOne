@@ -21,6 +21,12 @@ const twiceUnary = (binary) =>{
     binary(b)
   }
 }
+const twice = (binary) =>{
+  return (...b) => {
+    binary(...b)
+    binary(...b)
+  }
+}
 const double = (b) =>{
   twiceUnary((b)=> b * 2)
 }
