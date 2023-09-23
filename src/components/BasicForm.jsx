@@ -1,7 +1,10 @@
 import { useFormik } from 'formik'
 import React from 'react'
+import { basicSchema } from '../schemas'
 //1. Formik handle state management.
-
+const submitHandler = () =>{
+  console.log("submitted")
+}
 const BasicForm = () => {
     const formik  = useFormik({
         initialValues : {
@@ -9,12 +12,15 @@ const BasicForm = () => {
             age:"",
             password:"",
             confirmPassword:""
-        }
+        },
+        validationSchema: basicSchema,
+        onSubmit : submitHandler
     })
-    console.log(formik)
+    
+    console.log(formik.errors)
   return (
     <div>
-      <form autoComplete="off">
+      <form onSubmit={formik.handleSubmit} autoComplete="off">
       <label htmlFor="email">Email</label>
       <input id="email" type="email" placeholder="Enter your email"
       value={formik.values.email}
@@ -33,12 +39,14 @@ const BasicForm = () => {
       onChange={formik.handleChange}
       onBlur={formik.handleBlur}
       />
+      <div>
          <label htmlFor="confPass">Confirm Password</label>
       <input id="confPassword" type="password" placeholder="Confirm password"
       value={formik.values.confirmPassword}
       onChange={formik.handleChange}
       onBlur={formik.handleBlur}
       />
+      </div>
       <button type='submit'>Submit</button>
     </form>
     </div>
