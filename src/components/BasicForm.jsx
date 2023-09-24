@@ -2,7 +2,7 @@ import { useFormik } from 'formik'
 import React from 'react'
 import { basicSchema } from '../schemas'
 //1. Formik handle state management.
-const submitHandler = () =>{
+const onSubmit = () =>{
   console.log("submitted")
 }
 const BasicForm = () => {
@@ -14,10 +14,9 @@ const BasicForm = () => {
             confirmPassword:""
         },
         validationSchema: basicSchema,
-        onSubmit : submitHandler
+        onSubmit
     })
     
-    console.log(formik.errors)
   return (
     <div>
       <form onSubmit={formik.handleSubmit} autoComplete="off">
@@ -39,15 +38,11 @@ const BasicForm = () => {
       onChange={formik.handleChange}
       onBlur={formik.handleBlur}
       />
-      <div>
-         <label htmlFor="confPass">Confirm Password</label>
-      <input id="confPassword" type="password" placeholder="Confirm password"
-      value={formik.values.confirmPassword}
-      onChange={formik.handleChange}
-      onBlur={formik.handleBlur}
-      />
-      </div>
-      <button type='submit'>Submit</button>
+        
+      
+      <button type='submit'
+      className='bg-pink-400'
+      >Submit</button>
     </form>
     </div>
   )
